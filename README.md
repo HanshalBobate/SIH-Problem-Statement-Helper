@@ -89,33 +89,33 @@ Every year, thousands of college teams explore the **Smart India Hackathon (SIH)
 
 ```mermaid
 flowchart TD
-    subgraph Browser ["🌐 Chrome / Chromium Browser"]
-        SIH["Official SIH Portal<br/>(https://sih.gov.in/sih2026PS)"]
-        CS["Content Script<br/>(content_script.js)"]
-        CSS["Scoped Styles<br/>(styles.css)"]
-        POP["Extension Popup<br/>(popup.html / popup.js)"]
-        LS[("chrome.storage.local<br/>(Instant Cache & Offline Fallback)")]
+    subgraph Browser["🌐 Chrome / Chromium Browser"]
+        SIH["Official SIH Portal<br/>sih.gov.in/sih2026PS"]
+        CS["Content Script<br/>content_script.js"]
+        CSS["Scoped Styles<br/>styles.css"]
+        POP["Extension Popup<br/>popup.html / popup.js"]
+        LS[("chrome.storage.local<br/>Instant Cache & Offline Fallback")]
 
-        SIH <-->|Injects UI & Extracts DOM| CS
+        SIH <-->|"Injects UI & Extracts DOM"| CS
         CS --- CSS
-        CS <-->|Offline Read/Write| LS
-        POP <-->|Read Metrics| LS
+        CS <-->|"Offline Read/Write"| LS
+        POP <-->|"Read Metrics"| LS
     end
 
-    subgraph LocalBackend ["🐍 Local Python Backend (Port 7842)"]
-        API["FastAPI REST Server<br/>(server.py)"]
-        DB[("SQLite Database<br/>(sih_helper.db)")]
-        
-        API <-->|Async aiosqlite| DB
+    subgraph LocalBackend["🐍 Local Python Backend - Port 7842"]
+        API["FastAPI REST Server<br/>server.py"]
+        DB[("SQLite Database<br/>sih_helper.db")]
+
+        API <-->|"Async aiosqlite"| DB
     end
 
-    subgraph LocalAI ["🤖 Local LLM Engine (Port 11434)"]
-        OLLAMA["Ollama Server<br/>(qwen3:8b / llama3 / any model)"]
+    subgraph LocalAI["🤖 Local LLM Engine - Port 11434"]
+        OLLAMA["Ollama Server<br/>qwen3:8b / llama3 / any model"]
     end
 
-    CS <-->|HTTP REST (Notes & Status)| API
-    POP <-->|Health Check & Aggregates| API
-    CS <-->|Streaming HTTP Chat (CORS)| OLLAMA
+    CS <-->|"HTTP REST - Notes & Status"| API
+    POP <-->|"Health Check & Aggregates"| API
+    CS <-->|"Streaming HTTP Chat - CORS"| OLLAMA
 ```
 
 ---
