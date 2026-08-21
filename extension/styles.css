@@ -1,0 +1,359 @@
+/* =====================================================================
+   SIH PS Helper Extension — Injected Styles
+   Scoped to .sih-helper-root to avoid colliding with sih.gov.in styles.
+
+   Brand colours (matching SIH site):
+     Primary orange : #f75700
+     Deep blue      : #3a488b
+     Dark navy      : #002449
+   ===================================================================== */
+
+/* ── Table row highlight for reviewed PSs ──────────────────────────── */
+#dataTablePS tbody tr.sih-row-reviewed {
+    background: linear-gradient(90deg, #fff8f4 0%, #fff 100%) !important;
+    border-left: 4px solid #f75700 !important;
+}
+#dataTablePS tbody tr.sih-row-reviewed td.sorting_1 {
+    position: relative;
+}
+#dataTablePS tbody tr.sih-row-reviewed td.sorting_1::after {
+    content: ' ✓';
+    color: #f75700;
+    font-weight: 700;
+}
+
+/* ── Root container ─────────────────────────────────────────────────── */
+.sih-helper-root {
+    margin: 18px 0 4px 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13.5px;
+    color: #333;
+    border-top: 2px solid #e8e8ee;
+    padding-top: 14px;
+}
+
+/* ── Backend status indicator shown in root ─────────────────────────── */
+.sih-backend-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: #888;
+    margin-left: 8px;
+    font-weight: 600;
+}
+.sih-backend-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #ccc;
+    display: inline-block;
+    flex-shrink: 0;
+}
+.sih-backend-dot.online  { background: #27ae60; }
+.sih-backend-dot.offline { background: #e74c3c; }
+
+/* ── Status bar ─────────────────────────────────────────────────────── */
+.sih-status-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px;
+    background: #f9f9fb;
+    border-radius: 8px;
+    border: 1px solid #e8e8ee;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    transition: background 0.2s, border-color 0.2s;
+}
+.sih-status-bar--reviewed {
+    background: linear-gradient(90deg, #fff5ee, #fff9f5);
+    border-color: #f75700;
+}
+.sih-status-bar input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+    accent-color: #f75700;
+    flex-shrink: 0;
+    margin: 0;
+}
+.sih-reviewed-label {
+    cursor: pointer;
+    font-weight: 600;
+    color: #3a488b;
+    font-size: 13px;
+    user-select: none;
+    margin: 0;
+    transition: color 0.2s;
+}
+.sih-status-bar--reviewed .sih-reviewed-label { color: #f75700; }
+.sih-ps-chip {
+    margin-left: auto;
+    background: #3a488b;
+    color: #fff;
+    border-radius: 20px;
+    padding: 3px 11px;
+    font-size: 11.5px;
+    font-weight: 500;
+    max-width: 340px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+/* ── Sections ───────────────────────────────────────────────────────── */
+.sih-section {
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #e8e8ee;
+    overflow: hidden;
+}
+.sih-section-header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 14px;
+    background: #f3f5fc;
+    border-bottom: 1px solid #e8e8ee;
+    font-weight: 700;
+    font-size: 13px;
+    color: #3a488b;
+}
+.sih-section-icon  { font-size: 15px; flex-shrink: 0; }
+.sih-section-title { font-weight: 700; }
+
+/* ── Notes ──────────────────────────────────────────────────────────── */
+.sih-notes-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    resize: vertical;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+    background: #fff;
+    line-height: 1.6;
+    min-height: 90px;
+    display: block;
+    transition: background 0.2s;
+}
+.sih-notes-textarea:focus { background: #fffdf9; }
+.sih-notes-saved-indicator {
+    margin-left: auto;
+    font-size: 11px;
+    color: #27ae60;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.sih-notes-saved-indicator.visible { opacity: 1; }
+
+/* ── AI Toggle Button ───────────────────────────────────────────────── */
+.sih-ai-section { border: none; }
+.sih-ai-toggle-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: linear-gradient(90deg, #3a488b 0%, #002449 100%);
+    color: #fff !important;
+    border: none;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    transition: background 0.2s;
+    border-radius: 8px;
+    text-decoration: none !important;
+    box-shadow: none !important;
+}
+.sih-ai-toggle-btn:hover {
+    background: linear-gradient(90deg, #f75700 0%, #d44a00 100%);
+}
+.sih-caret { font-size: 11px; opacity: 0.8; }
+
+/* ── AI Body (collapsible) ──────────────────────────────────────────── */
+.sih-ai-body {
+    display: none;
+    flex-direction: column;
+    border: 1px solid #dde1f0;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+    background: #fff;
+}
+.sih-ai-body--open { display: flex; }
+
+/* ── Chat Log ───────────────────────────────────────────────────────── */
+.sih-chat-log {
+    min-height: 80px;
+    max-height: 340px;
+    overflow-y: auto;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #f7f8fc;
+    scroll-behavior: smooth;
+}
+
+/* ── Chat Messages ──────────────────────────────────────────────────── */
+.sih-chat-msg {
+    display: flex;
+    flex-direction: column;
+    max-width: 90%;
+}
+.sih-chat-msg--user  { align-self: flex-end;   align-items: flex-end;   }
+.sih-chat-msg--ai,
+.sih-chat-msg--error { align-self: flex-start;  align-items: flex-start; }
+.sih-chat-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    margin-bottom: 3px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.sih-chat-bubble {
+    border-radius: 12px;
+    padding: 9px 13px;
+    font-size: 13px;
+    line-height: 1.65;
+    max-width: 100%;
+    word-break: break-word;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+}
+.sih-chat-msg--user  .sih-chat-bubble {
+    background: #3a488b;
+    color: #fff;
+    border-bottom-right-radius: 3px;
+}
+.sih-chat-msg--ai    .sih-chat-bubble {
+    background: #fff;
+    color: #222;
+    border: 1px solid #e1e4f0;
+    border-bottom-left-radius: 3px;
+}
+.sih-chat-msg--error .sih-chat-bubble {
+    background: #fff4f0;
+    color: #c0392b;
+    border: 1px solid #f0a090;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+    border-bottom-left-radius: 3px;
+}
+.sih-chat-content strong { font-weight: 700; }
+.sih-chat-content code {
+    background: #f0f2fa;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* ── Quick Action Buttons ───────────────────────────────────────────── */
+.sih-quick-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 8px 14px;
+    background: #f3f5fc;
+    border-top: 1px solid #e8e8ee;
+}
+.sih-quick-btn {
+    background: #fff !important;
+    border: 1px solid #c5cbe8 !important;
+    border-radius: 16px !important;
+    padding: 4px 11px !important;
+    font-size: 11.5px !important;
+    color: #3a488b !important;
+    cursor: pointer !important;
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: 600 !important;
+    transition: background 0.15s, color 0.15s, border-color 0.15s !important;
+    white-space: nowrap !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+}
+.sih-quick-btn:hover {
+    background: #f75700 !important;
+    color: #fff !important;
+    border-color: #f75700 !important;
+}
+.sih-quick-btn:disabled {
+    opacity: 0.45 !important;
+    cursor: not-allowed !important;
+}
+
+/* ── Input Row ──────────────────────────────────────────────────────── */
+.sih-input-row {
+    display: flex;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #fff;
+    border-top: 1px solid #eee;
+    align-items: flex-end;
+}
+.sih-chat-input {
+    flex: 1;
+    border: 1px solid #c5cbe8 !important;
+    border-radius: 8px !important;
+    padding: 8px 11px;
+    font-size: 13px;
+    font-family: 'Open Sans', sans-serif;
+    resize: none;
+    line-height: 1.5;
+    color: #333;
+    outline: none;
+    transition: border-color 0.2s;
+    background: #fff;
+    box-shadow: none !important;
+}
+.sih-chat-input:focus { border-color: #3a488b !important; }
+.sih-send-btn {
+    background: linear-gradient(135deg, #f75700 0%, #d44a00 100%) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 9px 16px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    font-family: 'Open Sans', sans-serif !important;
+    transition: opacity 0.2s, transform 0.1s !important;
+    white-space: nowrap !important;
+    align-self: flex-end;
+    box-shadow: none !important;
+}
+.sih-send-btn:hover  { opacity: 0.88 !important; transform: scale(1.02); }
+.sih-send-btn:disabled { opacity: 0.4 !important; cursor: not-allowed !important; transform: none !important; }
+
+/* ── AI Loading Status ──────────────────────────────────────────────── */
+.sih-ai-status {
+    display: none;
+    padding: 6px 14px;
+    background: #fff8f4;
+    border-top: 1px solid #ffe8d8;
+    color: #c0560a;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────── */
+.sih-chat-log::-webkit-scrollbar { width: 5px; }
+.sih-chat-log::-webkit-scrollbar-thumb { background: #c5cbe8; border-radius: 3px; }
+.sih-chat-log::-webkit-scrollbar-track { background: transparent; }
+
+/* ── Responsive ─────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .sih-ps-chip { display: none; }
+    .sih-quick-btn { font-size: 11px !important; padding: 3px 8px !important; }
+    .sih-chat-log { max-height: 220px; }
+}

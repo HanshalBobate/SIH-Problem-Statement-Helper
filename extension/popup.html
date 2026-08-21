@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SIH PS Helper</title>
+    <style>
+        :root {
+            --orange: #f75700;
+            --blue:   #3a488b;
+            --navy:   #002449;
+            --green:  #27ae60;
+            --red:    #e74c3c;
+            --bg:     #f7f8fc;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            width: 300px;
+            font-family: 'Segoe UI', 'Open Sans', sans-serif;
+            font-size: 13px;
+            background: var(--bg);
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+            padding: 14px 16px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-icon { font-size: 22px; }
+        .header-text h1 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            text-transform: none;
+            letter-spacing: 0.2px;
+        }
+        .header-text p {
+            font-size: 11px;
+            color: rgba(255,255,255,0.65);
+            margin-top: 1px;
+        }
+
+        /* Status row */
+        .status-row {
+            display: flex;
+            gap: 8px;
+            padding: 10px 14px;
+            background: #fff;
+            border-bottom: 1px solid #e8e8ee;
+        }
+        .status-card {
+            flex: 1;
+            text-align: center;
+            padding: 8px 4px;
+            border-radius: 8px;
+            border: 1px solid #e8e8ee;
+            background: #f9f9fb;
+        }
+        .status-card .value {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--blue);
+            line-height: 1;
+        }
+        .status-card .value.orange { color: var(--orange); }
+        .status-card .label {
+            font-size: 10px;
+            color: #888;
+            margin-top: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        /* Service status */
+        .service-section {
+            padding: 10px 14px;
+            border-bottom: 1px solid #e8e8ee;
+        }
+        .service-section h2 {
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 8px;
+        }
+        .service-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 0;
+        }
+        .service-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #ccc;
+            flex-shrink: 0;
+            transition: background 0.3s;
+        }
+        .service-dot.online  { background: var(--green); box-shadow: 0 0 4px rgba(39,174,96,0.5); }
+        .service-dot.offline { background: var(--red); }
+        .service-dot.checking { background: #f39c12; }
+        .service-name {
+            font-weight: 600;
+            font-size: 12.5px;
+            color: #444;
+            flex: 1;
+        }
+        .service-detail {
+            font-size: 11px;
+            color: #888;
+        }
+
+        /* Actions */
+        .actions {
+            padding: 10px 14px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px 14px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 12.5px;
+            font-weight: 700;
+            font-family: inherit;
+            transition: opacity 0.15s, transform 0.1s;
+            text-decoration: none;
+            text-align: center;
+        }
+        .btn:hover { opacity: 0.88; transform: scale(1.01); }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--orange), #d44a00);
+            color: #fff;
+        }
+        .btn-secondary {
+            background: #fff;
+            color: var(--blue);
+            border: 1px solid #c5cbe8;
+        }
+        .btn-secondary:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+        /* Footer */
+        .footer {
+            padding: 7px 14px;
+            font-size: 10.5px;
+            color: #aaa;
+            border-top: 1px solid #e8e8ee;
+            text-align: center;
+        }
+
+        /* Error state */
+        .error-msg {
+            font-size: 11px;
+            color: var(--red);
+            background: #fff4f0;
+            border: 1px solid #f0a090;
+            border-radius: 6px;
+            padding: 6px 10px;
+            margin-top: 6px;
+            display: none;
+        }
+        .error-msg.visible { display: block; }
+
+        /* Loading spinner */
+        .spin {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="header-icon">🎯</div>
+        <div class="header-text">
+            <h1>SIH PS Helper</h1>
+            <p>Notes · Status · AI Analysis</p>
+        </div>
+    </div>
+
+    <div class="status-row">
+        <div class="status-card">
+            <div class="value" id="stat-total">–</div>
+            <div class="label">PSs saved</div>
+        </div>
+        <div class="status-card">
+            <div class="value orange" id="stat-reviewed">–</div>
+            <div class="label">Reviewed</div>
+        </div>
+        <div class="status-card">
+            <div class="value" id="stat-notes">–</div>
+            <div class="label">With notes</div>
+        </div>
+    </div>
+
+    <div class="service-section">
+        <h2>Services</h2>
+
+        <div class="service-row">
+            <span class="service-dot checking" id="dot-backend"></span>
+            <span class="service-name">Python Backend</span>
+            <span class="service-detail" id="detail-backend">checking…</span>
+        </div>
+
+        <div class="service-row">
+            <span class="service-dot checking" id="dot-ollama"></span>
+            <span class="service-name">Ollama AI</span>
+            <span class="service-detail" id="detail-ollama">checking…</span>
+        </div>
+
+        <div class="error-msg" id="backend-error">
+            Backend offline. Start it:<br>
+            <code style="font-size:10px">cd backend &amp;&amp; start.bat</code>
+        </div>
+    </div>
+
+    <div class="actions">
+        <a class="btn btn-primary" id="btn-open-sih"
+           href="https://sih.gov.in/sih2026PS" target="_blank">
+            🚀 Open SIH Problem Statements
+        </a>
+        <button class="btn btn-secondary" id="btn-refresh">
+            🔄 Refresh Status
+        </button>
+    </div>
+
+    <div class="footer">
+        v1.0 · Data stored locally · No cloud APIs
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

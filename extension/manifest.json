@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "SIH PS Helper",
+  "version": "1.0.0",
+  "description": "Personal notes, reviewed status, and AI analysis for SIH Problem Statements — powered by local Ollama.",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://*.sih.gov.in/*",
+    "*://sih.gov.in/*",
+    "http://localhost:7842/*",
+    "http://127.0.0.1:7842/*",
+    "http://localhost:11434/*",
+    "http://127.0.0.1:11434/*",
+    "file:///*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.sih.gov.in/*",
+        "*://sih.gov.in/*",
+        "file:///*"
+      ],
+      "js": ["content_script.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "SIH PS Helper"
+  },
+  "icons": {
+    "16":  "icons/icon16.png",
+    "48":  "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
