@@ -94,6 +94,37 @@ $('btn-refresh').addEventListener('click', () => {
     });
 });
 
+// Click-to-copy handler for command boxes
+let toastTimer = null;
+function showToast(msg) {
+    const toast = $('copy-toast');
+    if (!toast) return;
+    toast.textContent = msg || 'Copied! ✓';
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+    }, 1800);
+}
+
+document.querySelectorAll('.code-box').forEach(box => {
+    box.addEventListener('click', () => {
+        const cmd = box.getAttribute('data-copy') || box.textContent.trim();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(cmd).then(() => showToast(`Copied: ${cmd}`));
+        } else {
+            const ta = document.createElement('textarea');
+            ta.value = cmd;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast(`Copied: ${cmd}`);
+        }
+    });
+});
+
 // Initial check on popup open
 checkBackend();
 checkOllama();
+
